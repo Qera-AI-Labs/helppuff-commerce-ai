@@ -1,7 +1,4 @@
-const API_BASE = (function () {
-  var p = window.location.pathname.replace(/\/+$/, "");
-  return p + "/api";
-})();
+const API_BASE = "/api";
 
 const PREVIEW_TOKEN = new URLSearchParams(window.location.search).get("t") || "";
 
@@ -162,11 +159,15 @@ async function checkAuth() {
         const existing = root.querySelector(".login-subtitle");
         if (existing) existing.textContent = securityWarning;
       }
-    } else if (status.authenticated || authToken) {
+    } else if (status.authenticated) {
       renderShell();
-      navigate("dashboard");
+      navigate(new URLSearchParams(window.location.search).get("page") === "orders" ? "orders" : "dashboard");
       loadApprovals();
     } else {
+      if (authToken) {
+        authToken = "";
+        localStorage.removeItem("merchant_token");
+      }
       renderLogin();
     }
   } catch {
@@ -212,7 +213,7 @@ async function doLogin() {
       localStorage.setItem("merchant_token", authToken);
       showToast("Signed in", "success");
       renderShell();
-      navigate("dashboard");
+      navigate(new URLSearchParams(window.location.search).get("page") === "orders" ? "orders" : "dashboard");
       loadApprovals();
     }
   } catch (e) {
