@@ -1,0 +1,14 @@
+# PayPal Sandbox credentials — set these via `wrangler secret put`
+# or the Cloudflare dashboard under Workers → Settings → Variables/Secrets.
+#
+# Get your Sandbox credentials at: https://developer.paypal.com/dashboard/applications/sandbox
+#
+# wrangler secret put PAYPAL_CLIENT_ID
+# wrangler secret put PAYPAL_CLIENT_SECRET
+# wrangler secret put PAYPAL_WEBHOOK_ID
+# wrangler secret put MERCHANT_TOKEN
+
+PAYPAL_CLIENT_ID=your_sandbox_client_id
+PAYPAL_CLIENT_SECRET=your_sandbox_client_secret
+PAYPAL_WEBHOOK_ID=your_webhook_id
+MERCHANT_TOKEN=your_secret_merchant_token

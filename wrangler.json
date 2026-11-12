@@ -1,0 +1,28 @@
+{
+  "name": "helppuff-commerce-labs",
+  "main": "src/worker.ts",
+  "compatibility_date": "2025-04-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "ai": {
+    "binding": "AI"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "APP",
+        "class_name": "App"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "App"
+      ]
+    }
+  ]
+}

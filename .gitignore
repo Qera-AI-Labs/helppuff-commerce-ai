@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Environment
+.dev.vars
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+.wrangler/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# GitHub Actions (removed — Cloudflare handles builds)
+.github/workflows/
+
+# Logs
+*.log
+npm-debug.log*

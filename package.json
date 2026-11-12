@@ -1,0 +1,20 @@
+{
+  "name": "helppuff-commerce",
+  "version": "1.0.1",
+  "type": "module",
+  "description": "Open-source AI Commerce Assistant with PayPal integration, built on Cloudflare Workers",
+  "dependencies": {},
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250401.0",
+    "@cloudflare/vitest-pool-workers": "^0.5.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0",
+    "wrangler": "^3.90.0"
+  },
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.json",
+    "deploy": "wrangler deploy --config wrangler.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  }
+}
