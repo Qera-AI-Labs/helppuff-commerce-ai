@@ -26,26 +26,26 @@ Inspired by [HelpPuff](https://github.com/knowtific/helppuff) and PayPal agent-c
 
 **Verified workflow (November 12, 2026):** The deployed HelpPuff Commerce application processed a **$1.00 USD PayPal Sandbox test order** from AI conversation through structured proposal, explicit merchant approval, Sandbox checkout, buyer authorization, a separately approved capture, and final **COMPLETED** status. The merchant dashboard displayed one captured order and **$1.00 in simulated revenue**. No real money was transferred.
 
-**Authentication note:** The hosted merchant dashboard requires a private \`MERCHANT_TOKEN\`. **Judges cannot log into the hosted admin dashboard with a token they generate themselves.** They can watch the hosted demonstration and reproduce an interactive test in their *own Cloudflare account* using the instructions below. Do not request or publish the maintainer's administrator token.
+**Authentication note:** The hosted merchant dashboard requires a private `MERCHANT_TOKEN`. **Judges cannot log into the hosted admin dashboard with a token they generate themselves.** They can watch the hosted demonstration and reproduce an interactive test in their *own Cloudflare account* using the instructions below. Do not request or publish the maintainer's administrator token.
 
 ### 1. Clone and install
 
 Prerequisites: Node.js 18+, a Cloudflare account with Workers/Workers AI access, and a PayPal Developer account with Sandbox credentials.
 
-\`\`\`bash
+```bash
 git clone https://github.com/Qera-AI-Labs/helppuff-commerce-ai.git
 cd helppuff-commerce-ai
 npm install
 npx wrangler login
-\`\`\`
+```
 
-The supplied \`wrangler.prod.json\` declares the Worker entry point, \`AI\` Workers AI binding, \`APP\` SQLite-backed Durable Object binding/migration, and \`ASSETS\` binding. If your Cloudflare account already has a Worker with the configured name, choose a unique Worker name in **your local copy** of the Wrangler config before deployment.
+The supplied `wrangler.prod.json` declares the Worker entry point, `AI` Workers AI binding, `APP` SQLite-backed Durable Object binding/migration, and `ASSETS` binding. If your Cloudflare account already has a Worker with the configured name, choose a unique Worker name in **your local copy** of the Wrangler config before deployment.
 
 ### 2. Deploy to your Cloudflare account
 
-\`\`\`bash
+```bash
 npx wrangler deploy --config wrangler.prod.json
-\`\`\`
+```
 
 Use the **workers.dev** URL returned for **your** deployment (not the QERA-hosted URL) for the following steps.
 
@@ -55,14 +55,14 @@ The merchant token is an administrator credential for **your own deployment**. G
 
 For Windows PowerShell **5.1 or later**:
 
-\`\`\`powershell
+```powershell
 $bytes = New-Object byte[] 36
 $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
 $rng.GetBytes($bytes)
 $rng.Dispose()
 $token = [Convert]::ToBase64String($bytes).Replace('+','-').Replace('/','_')
 $token
-\`\`\`
+```
 
 Copy the token to a password manager. **Do not** reuse the repository owner's token, a GitHub token, a Cloudflare API token, or a PayPal password.
 
@@ -72,17 +72,17 @@ In **your** Cloudflare account, open **Workers & Pages → [your HelpPuff Worker
 
 | Secret name | Value |
 |---|---|
-| \`MERCHANT_TOKEN\` | Your newly generated random token |
-| \`PAYPAL_CLIENT_ID\` | Your PayPal application's **Sandbox** Client ID |
-| \`PAYPAL_CLIENT_SECRET\` | Your PayPal application's **Sandbox** Client Secret |
+| `MERCHANT_TOKEN` | Your newly generated random token |
+| `PAYPAL_CLIENT_ID` | Your PayPal application's **Sandbox** Client ID |
+| `PAYPAL_CLIENT_SECRET` | Your PayPal application's **Sandbox** Client Secret |
 
-Get Sandbox credentials from the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/applications/sandbox). If testing webhook notifications, configure \`PAYPAL_WEBHOOK_ID\` for your own registered Sandbox webhook as described in the main setup section.
+Get Sandbox credentials from the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/applications/sandbox). If testing webhook notifications, configure `PAYPAL_WEBHOOK_ID` for your own registered Sandbox webhook as described in the main setup section.
 
 **Never paste real secrets into GitHub, Devpost, screenshots, or videos.** Use Sandbox credentials; live PayPal production credentials are not required.
 
 ### 5. Sign in to your deployed HelpPuff Commerce
 
-Visit **your own** workers.dev URL. Enter the same token you configured as \`MERCHANT_TOKEN\` and select **Sign In**. The original hosted application remains protected by its own separate administrator credential.
+Visit **your own** workers.dev URL. Enter the same token you configured as `MERCHANT_TOKEN` and select **Sign In**. The original hosted application remains protected by its own separate administrator credential.
 
 ### 6. Test the AI-to-PayPal Sandbox workflow
 
@@ -319,4 +319,4 @@ The PayPal AI Hackathon 2026 demonstration completed an actual **$1.00 USD Sandb
 
 These steps confirm **the demonstrated Sandbox order and capture workflow**, not every feature or use case of the application. Invoicing, webhook end-to-end delivery, and real-money production transactions are not claimed to have been proven by that test. The video and judge reproduction instructions are linked above.
 
-This application is intentionally locked without \`MERCHANT_TOKEN\`. It must be configured privately for each deployment and never added to this repository or any public submission.
+This application is intentionally locked without `MERCHANT_TOKEN`. It must be configured privately for each deployment and never added to this repository or any public submission.
