@@ -125,7 +125,7 @@ export class App extends DurableObject<Env> {
     if (path === "/api/auth/login" && method === "POST") {
       if (!this.env.MERCHANT_TOKEN) return jsonResponse({ error: "Authentication not configured. Set MERCHANT_TOKEN secret." }, 503);
       const { token } = await request.json() as { token: string };
-      if (token === this.env.MERCHANT_TOKEN) return jsonResponse({ authenticated: true, token });
+      if (token === this.env.MERCHANT_TOKEN) return jsonResponse({ authenticated: true });
       return jsonResponse({ error: "Invalid token" }, 401);
     }
 
@@ -495,8 +495,8 @@ export class App extends DurableObject<Env> {
     if (requestUrl) {
       try {
         const origin = new URL(requestUrl).origin;
-        returnUrl = `${origin}/orders`;
-        cancelUrl = `${origin}/orders`;
+        returnUrl = `${origin}/?page=orders`;
+        cancelUrl = `${origin}/?page=orders&cancelled=1`;
       } catch {}
     }
     const result = await createPayPalOrder(token, payload, idempotencyKey || undefined, returnUrl, cancelUrl);
